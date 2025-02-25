@@ -65,6 +65,9 @@ The repository is archived on Zenodo at
 
 - `analysis_wytham_tits.R`
 - `model_wytham_tits.stan`
+- `figures_effects_on mean_traits.R`
+- `figures_effects_on_correlations.R`
+- `figures_effects_on_trait_variance.R`
 
 - `posterior_draws.txt`
 
@@ -73,7 +76,7 @@ The repository is archived on Zenodo at
 
 The RData file `data_wytham_tits.RData` contains the datasets `df.txt` and `df_fecundity.txt`, as well as 20 alternative versions of these datasets with imputed missing data `mi.df` and `mi_df_fecundity`. These datasets are needed to run the Stan model `model_wytham_tits.stan` using the R script `analysis_wytham_tits.R`. The non-imputed version of the dataset are also provided as txt file.
 
-The text file `posterior_draws.txt` contains the output of the model. More precisely, it contains the polled posterior draws (60000 posterior samples per parameter) for all model paramters of interest.
+The text file `posterior_draws.txt` contains the output of the model. More precisely, it contains the polled posterior draws (60000 posterior samples per parameter) for all model paramters of interest. The `posterior_draws.txt` file can be used together with `figures_effects_on mean_traits.R`, `figures_effects_on_correlations.R`, and `figures_effects_on_trait_variance.R` to reproduce the figures of the manuscript.
 
 
 ## METHODOLOGICAL INFORMATION
@@ -163,7 +166,7 @@ The text file `posterior_draws.txt` contains the output of the model. More preci
 
 ### DATA-SPECIFIC INFORMATION FOR: `posterior_draws.txt`
 
-1. Number of variables: 62
+1. Number of variables: 90
 
 2. Number of cases/rows: 60000
    Each row correspond to one posterior sample.
