@@ -1,6 +1,3 @@
-// the model presented here builds upon Jordan S. Martin CRN model
-// available on github https://github.com/Jordan-Scott-Martin/covariance-reaction-norms
-
 functions {
 
 //functions are used fom prior work by
@@ -71,16 +68,16 @@ data {
   array[N] int<lower=0> id_g_lm; //index observation - growth
   array[N] int<lower=0> plot_id_g; //plot for each observation - growth
   
-  array[M] int<lower=0> id_f; //index linking observations to individuals - fecundity / recruitment
-  array[M] int<lower=0> c_id_f; //index linking observations to contexts - fecundity / recruitment
-  array[M] int<lower=0> idc_f; //index linking individuals to positions in cmat - fecundity / recruitment
-  array[M] int<lower=0> id_f_lm; //index observations - fecundity / recruitment
-  array[M] int<lower=0> plot_id_f; //plot for each observation - fecundity / recruitment
+  array[M] int<lower=0> id_f; //index linking observations to individuals - fecundity
+  array[M] int<lower=0> c_id_f; //index linking observations to contexts - fecundity
+  array[M] int<lower=0> idc_f; //index linking individuals to positions in cmat - fecundity
+  array[M] int<lower=0> id_f_lm; //index observations - fecundity
+  array[M] int<lower=0> plot_id_f; //plot for each observation - fecundity
   
   matrix[C,P_y] X; //environmental predictor matrix (+ intercept) on correlation
   matrix[N,P_g] X_g; //environmental predictor matrix (+ intercept) on growth
   matrix[M,P_f] X_f; //environmental predictor matrix (+ intercept) on fecundity
-  matrix[M,P_r] X_r; //environmental predictor matrix (+ intercept) on recruitment
+  matrix[M,P_r] X_r; //environmental predictor matrix (+ intercept) on fecundity
   matrix[I,I] A; //relatedness matrix
   
   int<lower=1> cm; //max number of individuals observed in a context
@@ -88,18 +85,17 @@ data {
   array [C] int<lower=0> cn; //count of individuals observed per context
   int<lower=1> cnt; //total number of individuals across contexts
   
-  array[4088] int<lower=0> id_zero; // observations with 0 recruitment
-  array[3199] int<lower=0> id_nonzero; // observations with non 0 recruitment
+  array[4088] int<lower=0> id_zero;   //number of zero for recruitment
+  array[3199] int<lower=0> id_nonzero;  //number of non-zero for recruitment
   
   array[N] real growth; //offspring mass data
-  array[M] int productivity; //fecundity data
+  array[M] int<lower=1, upper=15> productivity; //fecundity data
   array[M] int recruitment; //recruitment data
 }
 
 transformed data{
   matrix[I, I] LA = cholesky_decompose(A);
   int ncor = (D*(D-1))/2; //unique cov/cor parameters
-  
   // Compute, thin, and then scale QR decomposition
   matrix[C, P_y] Q = qr_thin_Q(X) * sqrt(C-1);
   matrix[P_y, P_y] R = qr_thin_R(X) / sqrt(C-1);
@@ -117,7 +113,6 @@ transformed data{
   matrix[P_r, P_r] R_r = qr_thin_R(X_r) / sqrt(M-1);
   matrix[P_r, P_r] R_inv_r = inverse(R_r);
 
-  // for zero-inflation
   int<lower=0> M_zero = num_zeros(recruitment);
     array[M - M_zero] int<lower=1> y_nonzero;
     int M_nonzero = 0;
@@ -135,11 +130,12 @@ parameters {
   vector[P_f] B_mq_f; //RN of means - fecundity
   vector[P_r] B_mq_r; //RN of means - recruitment
   matrix[P_y, ncor] B_cpcq; //RN of canonical partial correlations
+  matrix[P_y, D] B_vq; //RN of variances
 
   //random effects
-  matrix[cnt, D] Z_G; //all context-specific additive values
+  matrix[cnt, D] Z_G; //all context-specific additive genetic values
   real<lower=0> sd_E; //residual standard deviation (within litter variance) - growth
-  array[C] vector<lower=0>[D] sd_G; //sd of ind effects
+  // array[C] vector<lower=0>[D] sd_G; //sd of ind effects
   
   // season RE
   real<lower=0> sd_g;
@@ -156,6 +152,8 @@ parameters {
   // ZI coefficient
   real<lower=0, upper=1> theta;
   
+  // cutpoints for ordinal model (equivalent to intercepts). 14 of them because there are 15 different observed brood size [0,14]
+  ordered[14] cutpoint; 
 }
 
 model {
@@ -172,6 +170,9 @@ model {
   //correlations (expressed as canonical partial correlations)
   matrix[C, ncor] cpc_G = tanh(Q * B_cpcq);
   
+  //variances
+  matrix[C, D] sd_G = sqrt(exp(Q * B_vq));
+  
   //scale univariate random effects
   vector[C] re_season_g = z_season_g * sd_g;
   vector[C] re_season_f = z_season_f * sd_f;
@@ -185,7 +186,7 @@ model {
   vector[M] mu_f = mu_fecundity[id_f_lm] + re_season_f[c_id_f] + col(mat_nestbox, 2)[plot_id_f]; 
   vector[M] mu_r = mu_recruitment[id_f_lm] + re_season_r[c_id_f] + col(mat_nestbox, 3)[plot_id_f]; 
 
-  //scale context-specific multivariate additive effects
+  //scale context-specific multivariate effects
   matrix[cnt, D] mat_G;
   int pos = 1; //keep track of position 1:cnt
   for(c in 1:C){
@@ -194,7 +195,7 @@ model {
       pos = pos + cn[c];   
   }
         
-//add context-specific effects to linear predictors
+//add context-specific multivariate effects to mean linear predictors
   for(n in 1:N){
   mu_g[n] += col(mat_G,1)[idc_g[n]];
   }
@@ -208,7 +209,7 @@ model {
 //likelihood growth (gaussian)
   growth ~ normal(mu_g, sd_E);
 //likelihood fecundity (poisson)
-  productivity ~ poisson_log(mu_f);
+  productivity ~ ordered_logistic(mu_f, cutpoint);
 //likelihood recruitment (zero inflated poisson)
    vector[M_zero] mu_r_zero = mu_r[id_zero];
    vector[M - M_zero] mu_r_nonzero = mu_r[id_nonzero];
@@ -224,6 +225,7 @@ model {
   to_vector(B_mq_f) ~ normal(0,1);
   to_vector(B_mq_r) ~ normal(0,1);
   to_vector(B_cpcq) ~ normal(0,0.5);
+  to_vector(B_vq) ~ normal(0,1);
   to_vector(Z_G) ~ std_normal();
   
   theta ~ beta(1,1);
@@ -241,16 +243,14 @@ model {
 
   sd_E ~ exponential(2);
   
-  for(c in 1:C){
-  sd_G[c] ~ exponential(2);
-  }
 }
 
 generated quantities{
-  vector[P_g] B_m_g; //mean RN parameters for X
-  vector[P_f] B_m_f; //mean RN parameters for X
-  vector[P_r] B_m_r; //mean RN parameters for X
-  matrix[P_y,ncor] B_cpc; //partial correlation RN parameters for X
+  vector[P_g] B_m_g; //mean RN parameters
+  vector[P_f] B_m_f; //mean RN parameters 
+  vector[P_r] B_m_r; //mean RN parameters 
+  matrix[P_y,ncor] B_cpc; //correlation RN parameters
+  matrix[P_y,D] B_v; //variance RN parameters
 
   B_m_g= R_inv_g * B_mq_g;
   B_m_f= R_inv_f * B_mq_f;
@@ -260,14 +260,20 @@ generated quantities{
     B_cpc[,d]= R_inv * B_cpcq[,d];
     }
     
+  for(i in 1:D){
+    B_v[,i]= R_inv * B_vq[,i];
+    }  
+    
   matrix[D, D] Sigma_plot = L_nestbox * L_nestbox';
   
-    
+  
   // Posterior predictive check for fecundity, offpsring mass, and recruitment
   vector[N] mu_growth_bis =  Q_g * B_mq_g;
   vector[M] mu_fecundity_bis =  Q_f * B_mq_f;
   vector[M] mu_recruitment_bis =  Q_r * B_mq_r;
   matrix[C, ncor] cpc_G_bis = tanh(Q * B_cpcq);
+  matrix[C, D] sd_G_bis = sqrt(exp(Q * B_vq));
+  
   vector[C] re_season_g_bis = z_season_g * sd_g;
   vector[C] re_season_f_bis = z_season_f * sd_f;
   vector[C] re_season_r_bis = z_season_r * sd_r;
@@ -279,7 +285,7 @@ generated quantities{
   int pos = 1; //keep track of position 1:cnt
   for(c in 1:C){
       mat_G_bis[pos:(pos+cn[c]-1)] =
-      LA[cmat[c,1:cn[c]],cmat[c,1:cn[c]]] * Z_G[pos:(pos+cn[c]-1)] * diag_pre_multiply(sd_G[c],lkj_to_chol_corr(cpc_G_bis[c], D))';
+      LA[cmat[c,1:cn[c]],cmat[c,1:cn[c]]] * Z_G[pos:(pos+cn[c]-1)] * diag_pre_multiply(sd_G_bis[c],lkj_to_chol_corr(cpc_G_bis[c], D))';
       pos = pos + cn[c];
   }
 
@@ -295,9 +301,10 @@ generated quantities{
   }
 
   y_rep_g = normal_rng(mu_g_bis, sd_E);
-  y_rep_f = poisson_log_rng(mu_f_bis);
   for(m in 1:M){
+  y_rep_f[m] = ordered_logistic_rng(mu_f_bis[m], cutpoint);
   y_rep_r[m] = bernoulli_logit_rng(theta) ? 0 : poisson_log_rng(mu_r_bis[m]);
   }
 
 }
+
