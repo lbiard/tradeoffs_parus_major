@@ -87,9 +87,9 @@ The text file `posterior_draws.txt` contains the output of the model. More preci
 - R v.4.3.2 https://www.r-project.org/
 - CmdStanR v.0.8.1 https://mc-stan.org/cmdstanr/
 
-3. People involved with sample collection: GREAT TIT PEOPLE
+3. People involved with sample collection: Ella F Cole, Ben C Sheldon
 
-4. People involved with data formatting and analysis: Bliard L.
+4. People involved with data formatting and analysis: Louis Bliard
 
 5. for more general informations regarding the methods, see https://doi.org/10.32942/X2D89H and the related code https://github.com/Jordan-Scott-Martin/covariance-reaction-norms and https://doi.org/10.1111/1365-2656.14173 and the related code https://github.com/lbiard/detecting_tradeoffs_crn_models 
 
