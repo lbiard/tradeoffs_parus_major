@@ -1,4 +1,4 @@
-# Ecological harshness mediates reproductive trade-offs in a wild bird population
+# Ecological harshness mediates reproductive trade-offs in a great tit population
 
 This repository hosts data, R code, and Stan code for Bliard L, Martin JS, Childs DZ, Cole EF, Sheldon BC, Paniw M, Ozgul A. Ecological harshness mediates reproductive trade-offs in a great tit population.
 
