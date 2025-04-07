@@ -81,7 +81,7 @@ The text file `posterior_draws.txt` contains the output of the model. More preci
 
 ## METHODOLOGICAL INFORMATION
  
-1. Methods for processing the data: R. Only the formatted data for analysis is provided. Note that individuals were anonymised (they will not match the individual IDs from other great tit publications). Please contact the data custodian in charge of the great tit data (Ben Sheldon) if you wish to access the great tit and blue tit database for your own analyses.
+1. Methods for processing the data: R. Only the formatted data for analysis is provided. Please contact the data custodian in charge of the great tit data (Ben Sheldon) if you wish to access the great tit and blue tit database for your own analyses.
 
 2. Instrument- or software-specific information needed to interpret the data: 
 - R v.4.3.2 https://www.r-project.org/
