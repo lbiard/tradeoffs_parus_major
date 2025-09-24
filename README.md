@@ -92,7 +92,7 @@ The text file `posterior_draws.txt` contains the output of the model. More preci
 
 4. People involved with data formatting and analysis: Louis Bliard
 
-5. for more general information regarding the methods, see https://doi.org/10.32942/X2D89H and the related code https://github.com/Jordan-Scott-Martin/covariance-reaction-norms and https://doi.org/10.1111/1365-2656.14173 and the related code https://github.com/lbiard/detecting_tradeoffs_crn_models 
+5. for more general information regarding the methods, see https://doi.org/10.1111/2041-210X.70125 and the related code https://github.com/Jordan-Scott-Martin/covariance-reaction-norms and https://doi.org/10.1111/1365-2656.14173 and the related code https://github.com/lbiard/detecting_tradeoffs_crn_models 
 
 
 ### DATA-SPECIFIC INFORMATION FOR: `data_wytham_tits.RData`
