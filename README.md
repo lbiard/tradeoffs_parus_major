@@ -2,9 +2,7 @@
 
 This repository hosts data, R code, and Stan code for Bliard L, Martin JS, Childs DZ, Cole EF, Sheldon BC, Paniw M, Ozgul A. Ecological harshness mediates reproductive trade-offs in a great tit population.
 
-Preprint version: 
-
-The repository is archived on Zenodo at 
+Preprint version: https://doi.org/10.32942/X26629 
 
 ## GENERAL INFORMATION
 
@@ -46,7 +44,7 @@ The repository is archived on Zenodo at
 
 1. Licenses/restrictions placed on the data: CC-BY 4.0
 
-2. Links to publications that cite or use the data: NA
+2. Links to publications that cite or use the data: https://doi.org/10.32942/X26629 
 
 3. Links to other publicly accessible locations of the data: SPI-Birds https://nioo.knaw.nl/en/projects/spi-birds/study/wytham-woods 
 
