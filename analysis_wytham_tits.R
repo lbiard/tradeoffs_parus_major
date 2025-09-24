@@ -20,11 +20,11 @@ library(cmdstanr)
 library(ggdist)
 
 
-##############@####
+###################
 #### Load data ####
-###############@###
+###################
 
-load("~/My Drive/phd/chapter 3/wytham_wood/analysis/last_version/last_last_version/data_wytham_tits.RData")
+load("~/data_wytham_tits.RData")
 # this contains 4 objects:
 # df: data frame containing data for the offspring mass model
 # df_fecundity: data frame containing data for the fecundity and recruitment models
@@ -33,12 +33,9 @@ load("~/My Drive/phd/chapter 3/wytham_wood/analysis/last_version/last_last_versi
 
 # see README file for more information on the dataframes
 
-
 ##################
 #### Analysis ####
 ##################
-
-
 
 X <- list()
 X_g <- list()
@@ -194,7 +191,7 @@ for(i in 1:20) {
   
   fit[[i]] <- mod$sample(
     data = stan.df[[i]], 
-    output_dir = "/data/lbliar/great_tit/final_comments",
+    output_dir = "/data/great_tit",
     seed = 125, 
     chains = 3, 
     parallel_chains = 3,
@@ -322,5 +319,4 @@ wrap_elements(full= (plot_ppc_f / plot_ppc_g / plot_ppc_r))
 
 # remove large elements from memory
 rm(draws_f, draws_g, draws_r)
-
 
