@@ -12,10 +12,10 @@ library(patchwork)
 #### Load dataset and  model output ####
 ########################################
 
-dat_plot <- read.csv("~/My Drive/phd/chapter 3/wytham_wood/analysis/last_version/last_last_version/posterior_draws.txt", row.names=1, sep="")
+dat_plot <- read.csv("~/posterior_draws.txt", row.names=1, sep="")
 
-df <- read.delim("~/My Drive/phd/chapter 3/wytham_wood/analysis/last_version/last_last_version/df.txt")
-df_fecundity <- read.delim("~/My Drive/phd/chapter 3/wytham_wood/analysis/last_version/last_last_version/df_fecundity.txt")
+df <- read.delim("~/df.txt")
+df_fecundity <- read.delim("~/df_fecundity.txt")
 
 
 

@@ -12,11 +12,10 @@ library(patchwork)
 #### Load dataset and  model output ####
 ########################################
 
-dat_plot <- read.csv("~/My Drive/phd/chapter 3/wytham_wood/analysis/last_version/last_last_version/posterior_draws.txt", row.names=1, sep="")
+dat_plot <- read.csv("~/posterior_draws.txt", row.names=1, sep="")
 
-df <- read.delim("~/My Drive/phd/chapter 3/wytham_wood/analysis/last_version/last_last_version/df.txt")
-df_fecundity <- read.delim("~/My Drive/phd/chapter 3/wytham_wood/analysis/last_version/last_last_version/df_fecundity.txt")
-
+df <- read.delim("~/df.txt")
+df_fecundity <- read.delim("~/df_fecundity.txt")
 
 
 ################################
@@ -156,6 +155,7 @@ inv_fun_p <- function(x){(x*sd(df$spring_temperature))+mean(df$spring_temperatur
 
 
 p_g_temperature <- ggplot(plot.dat, aes(x = inv_fun_p(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df, aes(x = spring_temperature, y = Mass.x), inherit.aes = F, alpha = 0.01, width = 0.03, height = 0)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -204,6 +204,7 @@ inv_fun_p2 <- function(x){(x*sd(df_fecundity$spring_temperature))+mean(df_fecund
 
 
 p_f_temperature <- ggplot(plot.dat, aes(x = inv_fun_p2(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df_fecundity, aes(x = spring_temperature, y = BroodSize_observed), inherit.aes = F, alpha = 0.03, width = 0.03, height = 0.2)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -252,6 +253,7 @@ inv_fun_p3 <- function(x){(x*sd(df_fecundity$spring_temperature))+mean(df_fecund
 
 
 p_r_temperature <- ggplot(plot.dat, aes(x = inv_fun_p3(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df_fecundity, aes(x = spring_temperature, y = n_recruits), inherit.aes = F, alpha = 0.03, width = 0.03, height = 0.2)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -304,6 +306,7 @@ inv_fun_precipitation <- function(x){(x*sd(df$spring_precipitation))+mean(df$spr
 
 
 p_g_precipitation <- ggplot(plot.dat, aes(x = inv_fun_precipitation(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df, aes(x = spring_precipitation, y = Mass.x), inherit.aes = F, alpha = 0.01, width = 1, height = 0)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -352,6 +355,7 @@ inv_fun_precipitation2 <- function(x){(x*sd(df_fecundity$spring_precipitation))+
 
 
 p_f_precipitation <- ggplot(plot.dat, aes(x = inv_fun_precipitation2(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df_fecundity, aes(x = spring_precipitation, y = BroodSize_observed), inherit.aes = F, alpha = 0.03, width = 1, height = 0.2)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -400,6 +404,7 @@ inv_fun_precipitation3 <- function(x){(x*sd(df_fecundity$spring_precipitation))+
 
 
 p_r_precipitation <- ggplot(plot.dat, aes(x = inv_fun_precipitation3(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df_fecundity, aes(x = spring_precipitation, y = n_recruits), inherit.aes = F, alpha = 0.03, width = 1, height = 0.2)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -452,6 +457,7 @@ inv_fun_density <- function(x){(x*sd(df$population_density))+mean(df$population_
 
 
 p_g_density <- ggplot(plot.dat, aes(x = inv_fun_density(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df, aes(x = population_density, y = Mass.x), inherit.aes = F, alpha = 0.01, width = 2, height = 0)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -500,6 +506,7 @@ inv_fun_density2 <- function(x){(x*sd(df_fecundity$population_density))+mean(df_
 
 
 p_f_density <- ggplot(plot.dat, aes(x = inv_fun_density2(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df_fecundity, aes(x = population_density, y = BroodSize_observed), inherit.aes = F, alpha = 0.03, width = 2, height = 0.2)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -548,6 +555,7 @@ inv_fun_density3 <- function(x){(x*sd(df_fecundity$population_density))+mean(df_
 
 
 p_r_density <- ggplot(plot.dat, aes(x = inv_fun_density3(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df_fecundity, aes(x = population_density, y = n_recruits), inherit.aes = F, alpha = 0.03, width = 2, height = 0.2)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -601,6 +609,7 @@ inv_fun_synchrony <- function(x){(x*sd(df$synchrony, na.rm = T))+mean(df$synchro
 
 
 p_g_synchrony <- ggplot(plot.dat, aes(x = inv_fun_synchrony(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df, aes(x = synchrony, y = Mass.x), inherit.aes = F, alpha = 0.01, width = 0.2, height = 0)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -649,6 +658,7 @@ inv_fun_synchrony2 <- function(x){(x*sd(df_fecundity$synchrony, na.rm = T))+mean
 
 
 p_f_synchrony <- ggplot(plot.dat, aes(x = inv_fun_synchrony2(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df_fecundity, aes(x = synchrony, y = BroodSize_observed), inherit.aes = F, alpha = 0.03, width = 0.2, height = 0.2)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -698,6 +708,7 @@ inv_fun_synchrony3 <- function(x){(x*sd(df_fecundity$synchrony, na.rm = T))+mean
 
 
 p_r_synchrony <- ggplot(plot.dat, aes(x = inv_fun_synchrony3(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df_fecundity, aes(x = synchrony, y = n_recruits), inherit.aes = F, alpha = 0.03, width = 0.2, height = 0.2)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -749,6 +760,7 @@ plot.dat <- data.frame(x2.sim, bayes.c.eff.mean,
 
 
 p_g_beechmast <- ggplot(plot.dat, aes(x = x2.sim, y = bayes.c.eff.mean)) +
+  geom_jitter(data = df, aes(x = mast.score, y = Mass.x), inherit.aes = F, alpha = 0.01, width = 0.2, height = 0)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -797,6 +809,7 @@ plot.dat <- data.frame(x2.sim, bayes.c.eff.mean,
 
 
 p_f_beechmast <- ggplot(plot.dat, aes(x = x2.sim, y = bayes.c.eff.mean)) +
+  geom_jitter(data = df_fecundity, aes(x = mast.score, y = BroodSize_observed), inherit.aes = F, alpha = 0.03, width = 0.2, height = 0.2)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -846,6 +859,7 @@ plot.dat <- data.frame(x2.sim, bayes.c.eff.mean,
 
 
 p_r_beechmast <- ggplot(plot.dat, aes(x = x2.sim, y = bayes.c.eff.mean)) +
+  geom_jitter(data = df_fecundity, aes(x = mast.score, y = n_recruits), inherit.aes = F, alpha = 0.03, width = 0.2, height = 0.2)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -866,6 +880,9 @@ p_r_beechmast <- ggplot(plot.dat, aes(x = x2.sim, y = bayes.c.eff.mean)) +
 ######################
 #### Breeding age ####
 ######################
+
+df$breeding_age_plot <- df$breeding_age+1
+df_fecundity$breeding_age_plot <- df_fecundity$breeding_age+1
 
 ## offspring mass
 
@@ -916,6 +933,7 @@ plot.dat <- cbind(plot.dat, sp)
 
 
 p_g_breedingage <- ggplot(df, aes(x = breeding_age, y = Mass.x)) +
+  geom_jitter(data = df, aes(x = breeding_age_plot, y = Mass.x), inherit.aes = F, alpha = 0.01, width = 0.3, height = 0)+
   xlab("Breeding age")+
   ylab("Offpsring mass")+
   theme_bw() +
@@ -986,6 +1004,7 @@ plot.dat <- cbind(plot.dat, sp)
 
 
 p_f_breedingage <- ggplot(df_fecundity, aes(x = breeding_age, y = BroodSize_observed)) +
+  geom_jitter(data = df_fecundity, aes(x = breeding_age_plot, y = BroodSize_observed), inherit.aes = F, alpha = 0.03, width = 0.3, height = 0.2)+
   xlab("Breeding age")+
   ylab("Brood size")+
   theme_bw() +
@@ -1057,6 +1076,7 @@ plot.dat <- cbind(plot.dat, sp)
 
 
 p_r_breedingage <- ggplot(df_fecundity, aes(x = breeding_age, y = n.recruits)) +
+  geom_jitter(data = df_fecundity, aes(x = breeding_age_plot, y = n_recruits), inherit.aes = F, alpha = 0.03, width = 0.3, height = 0.2)+
   xlab("Breeding age")+
   ylab("Recruitment")+
   theme_bw() +
@@ -1117,6 +1137,7 @@ inv_fun_mass <- function(x){(x*sd(df$Mass.y, na.rm = T))+mean(df$Mass.y, na.rm =
 
 
 p_g_mass <- ggplot(plot.dat, aes(x = inv_fun_mass(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df, aes(x = Mass.y, y = Mass.x), inherit.aes = F, alpha = 0.01, width = 0, height = 0)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -1165,6 +1186,7 @@ inv_fun_mass2 <- function(x){(x*sd(df_fecundity$Mass, na.rm = T))+mean(df_fecund
 
 
 p_f_mass <- ggplot(plot.dat, aes(x = inv_fun_mass2(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df_fecundity, aes(x = Mass, y = BroodSize_observed), inherit.aes = F, alpha = 0.03, width = 0, height = 0.2)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -1214,6 +1236,7 @@ inv_fun_mass3 <- function(x){(x*sd(df_fecundity$Mass, na.rm = T))+mean(df_fecund
 
 
 p_r_mass <- ggplot(plot.dat, aes(x = inv_fun_mass3(x2.sim), y = bayes.c.eff.mean)) +
+  geom_jitter(data = df_fecundity, aes(x = Mass, y = n_recruits), inherit.aes = F, alpha = 0.03, width = 0, height = 0.2)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis4, ymax = bayes.c.eff.upper.bis4), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis3, ymax = bayes.c.eff.upper.bis3), fill = "darkseagreen4", alpha = 0.1)+
   geom_ribbon(aes(ymin = bayes.c.eff.lower.bis2, ymax = bayes.c.eff.upper.bis2), fill = "darkseagreen4", alpha = 0.1)+
@@ -1234,7 +1257,7 @@ p_r_mass <- ggplot(plot.dat, aes(x = inv_fun_mass3(x2.sim), y = bayes.c.eff.mean
 ########################
 
 
-#ragg::agg_tiff("Figure S1.tiff", width = 17, height = 10, units = "in", res = 300)
+#ragg::agg_tiff("Figure S7.tiff", width = 17, height = 10, units = "in", res = 300)
 (p_g_temperature | p_g_precipitation | p_g_density | p_g_beechmast | p_g_breedingage | p_g_mass | p_g_synchrony) /
   (p_f_temperature | p_f_precipitation | p_f_density | p_f_beechmast | p_f_breedingage | p_f_mass | p_f_synchrony) /
   (p_r_temperature | p_r_precipitation | p_r_density | p_r_beechmast | p_r_breedingage | p_r_mass | p_r_synchrony)
@@ -1320,7 +1343,7 @@ plot_forest <-ggplot()+
         , panel.grid.minor = element_blank()
   )
 
-#ragg::agg_tiff("Figure S2.tiff", width = 8, height = 7, units = "in", res = 300)
+#ragg::agg_tiff("Figure S8.tiff", width = 8, height = 7, units = "in", res = 300)
 plot_forest
 #dev.off()
 

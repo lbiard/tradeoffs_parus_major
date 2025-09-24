@@ -12,15 +12,10 @@ library(patchwork)
 #### Load dataset and  model output ####
 ########################################
 
-dat_plot <- read.csv("~/My Drive/phd/chapter 3/wytham_wood/analysis/last_version/last_last_version/posterior_draws.txt", row.names=1, sep="")
+dat_plot <- read.csv("~posterior_draws.txt", row.names=1, sep="")
 
-df <- read.delim("~/My Drive/phd/chapter 3/wytham_wood/analysis/last_version/last_last_version/df.txt")
-df_fecundity <- read.delim("~/My Drive/phd/chapter 3/wytham_wood/analysis/last_version/last_last_version/df_fecundity.txt")
-
-
-
-
-
+df <- read.delim("~/df.txt")
+df_fecundity <- read.delim("~/df_fecundity.txt")
 
 
 ####################################
@@ -236,7 +231,7 @@ plot_vof_beechmast <- ggplot(plot.dat, aes(x = x2.sim, y = bayes.c.eff.mean)) +
 
 combined_plot <- plot_vof_density+plot_vof_temperature+plot_vof_precipitation+plot_vof_beechmast & ylab(NULL) & ggtitle(NULL)
 
-#ragg::agg_tiff("Figure S3.tiff", width = 8, height = 6, units = "in", res = 300)
+#ragg::agg_tiff("Figure S9.tiff", width = 8, height = 6, units = "in", res = 300)
 gt <- patchwork::patchworkGrob(combined_plot)
 gridExtra::grid.arrange(gt, left = "Among mother variance in offspring mass", top = "Offpring mass variance")  
 #dev.off()
@@ -450,7 +445,7 @@ plot_vb_beechmast <- ggplot(plot.dat, aes(x = x2.sim, y = bayes.c.eff.mean)) +
 
 combined_plot <- plot_vb_density+plot_vb_temperature+plot_vb_precipitation+plot_vb_beechmast & ylab(NULL) & ggtitle(NULL)
 
-#ragg::agg_tiff("Figure S4.tiff", width = 8, height = 6, units = "in", res = 300)
+#ragg::agg_tiff("Figure S10.tiff", width = 8, height = 6, units = "in", res = 300)
 gt <- patchwork::patchworkGrob(combined_plot)
 gridExtra::grid.arrange(gt, left = "Observation level variance in brood size", top = "Brood size variance")  
 #dev.off()
@@ -666,7 +661,7 @@ plot_vr_beechmast <- ggplot(plot.dat, aes(x = x2.sim, y = bayes.c.eff.mean)) +
 
 combined_plot <- plot_vr_density+plot_vr_temperature+plot_vr_precipitation+plot_vr_beechmast & ylab(NULL) & ggtitle(NULL)
 
-#ragg::agg_tiff("Figure S5.tiff", width = 8, height = 6, units = "in", res = 300)
+#ragg::agg_tiff("Figure S11.tiff", width = 8, height = 6, units = "in", res = 300)
 gt <- patchwork::patchworkGrob(combined_plot)
 gridExtra::grid.arrange(gt, left = "Observation level variance in recruitment", top = "Recruitment variance")  
 #dev.off()
@@ -750,7 +745,7 @@ p2 <-ggplot()+
         , panel.grid.minor = element_blank()
   )
 
-#ragg::agg_tiff("Figure S6.tiff", width = 8, height = 7, units = "in", res = 300)
+#ragg::agg_tiff("Figure S12.tiff", width = 8, height = 7, units = "in", res = 300)
 p2
 #dev.off()
 
