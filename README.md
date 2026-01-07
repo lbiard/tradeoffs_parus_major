@@ -202,11 +202,3 @@ The `posterior_draws.txt` file can be used together with the R script `figures_e
 - "synchrony" = difference (in days) between the half fall date and the mother's laying date.
 
 4. Missing data codes: NA
-
-
-### DATA-SPECIFIC INFORMATION FOR: `posterior_draws.txt`
-
-1. Number of variables: 90
-
-2. Number of cases/rows: 60000
-   Each row correspond to one posterior sample.
