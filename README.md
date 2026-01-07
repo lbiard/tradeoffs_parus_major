@@ -11,8 +11,7 @@ Preprint version: https://doi.org/10.32942/X26629
 2. Author Information:
 	
         A.  Name: Louis Bliard
-		Institution: University of Zurich
-		Address: Winterthurerstrasse 190, 8057 Zurich, Switzerland
+		Institution: University of Zurich (now Aarhus University)
 		Email: bliard.louis@gmail.com
 	
         B.  Name: Jordan S Martin
