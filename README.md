@@ -101,13 +101,21 @@ To perform the statistical model that does not include the year random effect, t
 
 
 The `posterior_draws.txt` file can be used together with the R script `figures_effects_on_correlations.R` to reproduce Figure 1, Figure 2, Figure 3, and Figure 4 of the manuscript. 
+
 The R script `figure_brood_reduction.R` can be used to reproduce Figure S1.
+
 The `posterior_draws_no_imputation.txt` file can be used together with the R script `figures_effects_on_correlations.R` and `figures_effects_on mean_traits.R` to reproduce Figure S3 and Figure S4 of the manuscript.
+
 The R script `comparison_prior_hyperbolic_tangent.R` can be used to reproduce Figure S5 of the manuscript.
+
 The `posterior_draws_no_season_re.txt` file can be used together with the R script `figures_effects_on_correlations.R` to reproduce Figure S6 of the manuscript.
+
 The `posterior_draws_no_season_re_no_env.txt` file can be used together with the R script `figures_effects_on_correlations.R` to reproduce Figure S7 of the manuscript.
+
 The `posterior_draws_interaction.txt` file can be used together with the R script `figure_interaction_beech_mast_density.R` to reproduce Figure S8 and Figure S9 of the manuscript.
+
 The `posterior_draws.txt` file can be used together with the R script `figures_effects_on mean_traits.R` to reproduce Figure S10 and Figure S11 of the manuscript.
+
 The `posterior_draws.txt` file can be used together with the R script `figures_effects_on_trait_variance.R` to reproduce Figure S12, Figure S13, Figure S14, and Figure S15 of the manuscript.
 
 
