@@ -1,12 +1,12 @@
-# Ecological harshness mediates reproductive trade-offs in a great tit population
+# Ecological harshness has a weak influence on reproductive trade-offs in a great tit population
 
-This repository hosts data, R code, and Stan code for Bliard L, Martin JS, Childs DZ, Cole EF, Sheldon BC, Paniw M, Ozgul A. Ecological harshness mediates reproductive trade-offs in a great tit population.
+This repository hosts data, R code, and Stan code for Bliard L, Martin JS, Childs DZ, Cole EF, Sheldon BC, Paniw M, Ozgul A. Ecological harshness has a weak influence on reproductive trade-offs in a great tit population.
 
 Preprint version: https://doi.org/10.32942/X26629 
 
 ## GENERAL INFORMATION
 
-1. Title: Data and scripts from "Ecological harshness mediates reproductive trade-offs in a great tit population".
+1. Title: Data and scripts from "Ecological harshness has a weak influence on reproductive trade-offs in a great tit population".
 
 2. Author Information:
 	
@@ -50,7 +50,7 @@ Preprint version: https://doi.org/10.32942/X26629
 
 4. Was data derived from another source? NA
 
-5. Recommended citation for this dataset: Bliard L, Martin JS, Childs DZ, Cole EF, Sheldon BC, Paniw M, Ozgul A (XXXX). Ecological harshness mediates reproductive trade-offs in a great tit population [Data set].
+5. Recommended citation for this dataset: Bliard L, Martin JS, Childs DZ, Cole EF, Sheldon BC, Paniw M, Ozgul A (2026). Ecological harshness has a weak influence on reproductive trade-offs in a great tit population [Data set].
 
 
 
