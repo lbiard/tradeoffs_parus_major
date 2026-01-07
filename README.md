@@ -56,32 +56,58 @@ Preprint version: https://doi.org/10.32942/X26629
 
 ## DATA & FILE OVERVIEW
 
-1. File List: 
+1. File List:
+a. Data
 - `data_wytham_tits.RData`
 - `df.txt`
 - `df_fecundity.txt`
 
-- `analysis_wytham_tits.R`
+b. Model
 - `model_wytham_tits.stan`
+- `model_no_season_re.stan`
+
+c. Analyses
+- `analysis_wytham_tits.R`
 - `analysis_no_imputation.R`
 - `analysis_interaction_beechmast_density.R`
 
+d. Output
+- `posterior_draws.txt`
+- `posterior_draws_interaction.txt`
+- `posterior_draws_no_imputation.txt`
+- `posterior_draws_no_season_re.txt`
+- `posterior_draws_no_season_re_no_env.txt`
+
+e. Figure
 - `figures_effects_on mean_traits.R`
 - `figures_effects_on_correlations.R`
 - `figures_effects_on_trait_variance.R`
 - `figure_brood_reduction.R`
+- `comparison_prior_hyperbolic_tangent.R`
 - `figure_interaction_beech_mast_density.R`
-
-- `posterior_draws.txt`
-
 
 2. Relationship between files, if important: 
 
-The RData file `data_wytham_tits.RData` contains the datasets `df.txt` and `df_fecundity.txt`, as well as 20 alternative versions of these datasets with imputed missing data `mi.df` and `mi_df_fecundity`. These datasets are needed to run the Stan model `model_wytham_tits.stan` using the R script `analysis_wytham_tits.R`. The non-imputed version of the dataset is also provided as txt file, and the model excluding imputed data can be run using the R script `analysis_no_imputation.R`. The R script `analysis_interaction_beechmast_density.R` can be used to run the model that include an interaction between beech mast and population density.
+The RData file `data_wytham_tits.RData` contains the datasets `df.txt` and `df_fecundity.txt`, as well as 20 alternative versions of these datasets with imputed missing data `mi.df` and `mi_df_fecundity`. These datasets are needed to run all the analyses.
 
-The text file `posterior_draws.txt` contains the output of the model. More precisely, it contains the polled posterior draws (60000 posterior samples per parameter) for all model paramters of interest. The `posterior_draws.txt` file can be used together with `figures_effects_on mean_traits.R`, `figures_effects_on_correlations.R`, and `figures_effects_on_trait_variance.R` to reproduce Figure 1, Figure 2, Figure 3, and Figure 4 of the manuscript. 
-The script `figure_brood_reduction.R` can be used to reproduce Figure S1.
-The script `figure_interaction_beech_mast_density.R` can be used to reproduce Figure S8 and Figure S9.
+The Stan code file `model_wytham_tits.stan` is the main statistical model, which can be run using the main analysis R script `analysis_wytham_tits.R`. The output (i.e. posterior samples, that comprise 60000 posterior samples per parameter) of this model is stored in the file `posterior_draws.txt`.
+
+The same statistical model can be performed excluding the imputed data using the R script `analysis_no_imputation.R`. The output of this model is stored in the file `posterior_draws_no_imputation.txt`.
+
+The same statistical model can be performed including an interaction between beech mast index and population density using the R script `analysis_interaction_beechmast_density.R`. The output of this model is stored in the file `posterior_draws_interaction.txt`.
+
+To perform the statistical model that does not include the year random effect, the Stan code file `model_no_season_re.stan` needs to be used. The output of this model is stored in the file `posterior_draws_no_season_re.txt`.
+
+
+The `posterior_draws.txt` file can be used together with the R script `figures_effects_on_correlations.R` to reproduce Figure 1, Figure 2, Figure 3, and Figure 4 of the manuscript. 
+The R script `figure_brood_reduction.R` can be used to reproduce Figure S1.
+The `posterior_draws_no_imputation.txt` file can be used together with the R script `figures_effects_on_correlations.R` and `figures_effects_on mean_traits.R` to reproduce Figure S3 and Figure S4 of the manuscript.
+The R script `comparison_prior_hyperbolic_tangent.R` can be used to reproduce Figure S5 of the manuscript.
+The `posterior_draws_no_season_re.txt` file can be used together with the R script `figures_effects_on_correlations.R` to reproduce Figure S6 of the manuscript.
+The `posterior_draws_no_season_re_no_env.txt` file can be used together with the R script `figures_effects_on_correlations.R` to reproduce Figure S7 of the manuscript.
+The `posterior_draws_interaction.txt` file can be used together with the R script `figure_interaction_beech_mast_density.R` to reproduce Figure S8 and Figure S9 of the manuscript.
+The `posterior_draws.txt` file can be used together with the R script `figures_effects_on mean_traits.R` to reproduce Figure S10 and Figure S11 of the manuscript.
+The `posterior_draws.txt` file can be used together with the R script `figures_effects_on_trait_variance.R` to reproduce Figure S12, Figure S13, Figure S14, and Figure S15 of the manuscript.
 
 
 ## METHODOLOGICAL INFORMATION
