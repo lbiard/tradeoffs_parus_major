@@ -64,6 +64,7 @@ Preprint version: https://doi.org/10.32942/X26629
 - `analysis_wytham_tits.R`
 - `model_wytham_tits.stan`
 - `analysis_no_imputation.R`
+- `analysis_interaction_beechmast_density.R`
 
 - `figures_effects_on mean_traits.R`
 - `figures_effects_on_correlations.R`
@@ -75,7 +76,7 @@ Preprint version: https://doi.org/10.32942/X26629
 
 2. Relationship between files, if important: 
 
-The RData file `data_wytham_tits.RData` contains the datasets `df.txt` and `df_fecundity.txt`, as well as 20 alternative versions of these datasets with imputed missing data `mi.df` and `mi_df_fecundity`. These datasets are needed to run the Stan model `model_wytham_tits.stan` using the R script `analysis_wytham_tits.R`. The non-imputed version of the dataset is also provided as txt file, and the model excluding imputed data can be run using the R script `analysis_no_imputation.R`.
+The RData file `data_wytham_tits.RData` contains the datasets `df.txt` and `df_fecundity.txt`, as well as 20 alternative versions of these datasets with imputed missing data `mi.df` and `mi_df_fecundity`. These datasets are needed to run the Stan model `model_wytham_tits.stan` using the R script `analysis_wytham_tits.R`. The non-imputed version of the dataset is also provided as txt file, and the model excluding imputed data can be run using the R script `analysis_no_imputation.R`. The R script `analysis_interaction_beechmast_density.R` can be used to run the model that include an interaction between beech mast and population density.
 
 The text file `posterior_draws.txt` contains the output of the model. More precisely, it contains the polled posterior draws (60000 posterior samples per parameter) for all model paramters of interest. The `posterior_draws.txt` file can be used together with `figures_effects_on mean_traits.R`, `figures_effects_on_correlations.R`, and `figures_effects_on_trait_variance.R` to reproduce the figures of the manuscript. The script `figure_brood_reduction.R` can be used to reproduce Figure S1.
 
