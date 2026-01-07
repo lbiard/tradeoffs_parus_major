@@ -138,8 +138,6 @@ parameters {
   matrix[cnt, D] Z_G; //all context-specific additive genetic values
   real<lower=0> sd_E; //residual standard deviation (within litter variance) - growth
   // array[C] vector<lower=0>[D] sd_G; //sd of ind effects
-  
-  // season RE
 
   // // plot RE
   matrix[P, D] Z_nestbox;
