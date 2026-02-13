@@ -2,6 +2,8 @@
 
 This repository hosts data, R code, and Stan code for Bliard L, Martin JS, Childs DZ, Cole EF, Sheldon BC, Paniw M, Ozgul A. Ecological harshness has a weak influence on reproductive trade-offs in a great tit population.
 
+This repository is archived on Zenodo: https://doi.org/10.5281/zenodo.18186723 
+
 Preprint version: https://doi.org/10.32942/X26629 
 
 ## GENERAL INFORMATION
