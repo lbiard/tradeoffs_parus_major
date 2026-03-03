@@ -39,7 +39,8 @@ functions {
     }
     return(x);
   }
-  
+
+  //function for zero-inflated model
   int num_zeros(array[] int y) {
     int sum = 0;
     for (m in 1:size(y)) {
@@ -135,11 +136,11 @@ parameters {
   matrix[P_y, D] B_vq; //RN of variances
 
   //random effects
-  matrix[cnt, D] Z_G; //all context-specific additive genetic values
-  real<lower=0> sd_E; //residual standard deviation (within litter variance) - growth
+  matrix[cnt, D] Z_G; //all context-specific additive phenotypic values
+  real<lower=0> sd_E; //residual standard deviation (within clutch variance) - growth
   // array[C] vector<lower=0>[D] sd_G; //sd of ind effects
 
-  // // plot RE
+  // plot RE
   matrix[P, D] Z_nestbox;
   cholesky_factor_corr[D] L_nestbox;
   vector<lower=0>[D] sd_nestbox;
@@ -179,7 +180,7 @@ model {
   vector[M] mu_f = mu_fecundity[id_f_lm] + col(mat_nestbox, 2)[plot_id_f]; 
   vector[M] mu_r = mu_recruitment[id_f_lm] + col(mat_nestbox, 3)[plot_id_f]; 
 
-  //scale context-specific multivariate additive genetic effects
+  //scale context-specific multivariate additive phenotypic effects
   matrix[cnt, D] mat_G;
   int pos = 1; //keep track of position 1:cnt
   for(c in 1:C){
@@ -188,7 +189,7 @@ model {
       pos = pos + cn[c];   
   }
         
-//add context-specific genetic effects to linear predictors
+//add context-specific phenotypic effects to linear predictors
   for(n in 1:N){
   mu_g[n] += col(mat_G,1)[idc_g[n]];
   }
@@ -201,8 +202,7 @@ model {
        
 //likelihood growth (gaussian)
   growth ~ normal(mu_g, sd_E);
-//likelihood fecundity (poisson)
-  //productivity ~ poisson_log(mu_f);
+//likelihood fecundity (ordinal)
   productivity ~ ordered_logistic(mu_f, cutpoint);
 //likelihood recruitment (zero inflated poisson)
    vector[M_zero] mu_r_zero = mu_r[id_zero];
