@@ -39,7 +39,8 @@ functions {
     }
     return(x);
   }
-  
+
+  //function for zero-inflated model
   int num_zeros(array[] int y) {
     int sum = 0;
     for (m in 1:size(y)) {
@@ -133,8 +134,8 @@ parameters {
   matrix[P_y, D] B_vq; //RN of variances
 
   //random effects
-  matrix[cnt, D] Z_G; //all context-specific additive genetic values
-  real<lower=0> sd_E; //residual standard deviation (within litter variance) - growth
+  matrix[cnt, D] Z_G; //all context-specific additive phenotypic values
+  real<lower=0> sd_E; //residual standard deviation (within clutch variance) - growth
   // array[C] vector<lower=0>[D] sd_G; //sd of ind effects
   
   // season RE
@@ -144,7 +145,7 @@ parameters {
   vector[C] z_season_g;
   vector[C] z_season_f;
   vector[C] z_season_r;
-  // // plot RE
+  // plot RE
   matrix[P, D] Z_nestbox;
   cholesky_factor_corr[D] L_nestbox;
   vector<lower=0>[D] sd_nestbox;
@@ -152,7 +153,7 @@ parameters {
   // ZI coefficient
   real<lower=0, upper=1> theta;
   
-  // cutpoints for ordinal model (equivalent to intercepts). 14 of them because there are 15 different observed brood size [0,14]
+  // cutpoints for ordinal model (equivalent to intercepts). 14 of them because there are 15 different possible brood size [0,14]
   ordered[14] cutpoint; 
 }
 
@@ -208,7 +209,7 @@ model {
        
 //likelihood growth (gaussian)
   growth ~ normal(mu_g, sd_E);
-//likelihood fecundity (poisson)
+//likelihood fecundity (ordinal)
   productivity ~ ordered_logistic(mu_f, cutpoint);
 //likelihood recruitment (zero inflated poisson)
    vector[M_zero] mu_r_zero = mu_r[id_zero];
