@@ -78,7 +78,7 @@ data {
   matrix[C,P_y] X; //environmental predictor matrix (+ intercept) on correlation
   matrix[N,P_g] X_g; //environmental predictor matrix (+ intercept) on growth
   matrix[M,P_f] X_f; //environmental predictor matrix (+ intercept) on fecundity
-  matrix[M,P_r] X_r; //environmental predictor matrix (+ intercept) on fecundity
+  matrix[M,P_r] X_r; //environmental predictor matrix (+ intercept) on recruitment
   matrix[I,I] A; //relatedness matrix
   
   int<lower=1> cm; //max number of individuals observed in a context
